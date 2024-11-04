@@ -464,20 +464,20 @@ void compute_local(
                   comm, &status );
       }
       /* Do the second set of exchanges */
-      if ((my_rank % 2) == 1) 
-      {
-      /* exchange up */
-          MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-                  &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-                  comm, &status );
-      }
-      else 
-      {
-      /* exchange down */
-          MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
-                  &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
-                  comm, &status );
-      }
+      // if ((my_rank % 2) == 1) 
+      // {
+      // /* exchange up */
+      //     MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+      //             &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+      //             comm, &status );
+      // }
+      // else 
+      // {
+      // /* exchange down */
+      //     MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
+      //             &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
+      //             comm, &status );
+      // }
   
       flag = compute(life,temp,nRows,nCols);
   
