@@ -357,7 +357,7 @@ void Read_vector(
    else 
    {
       Check_for_error(local_ok, fname, "Can't allocate temporary vector", comm);
-      MPI_Scatterv(a, counts, displs, MPI_INT, local_a, local_n, MPI_INT, 0,comm);
+      MPI_Scatterv(a, counts, displs, MPI_INT, local_a, local_n, MPI_INT, 0, comm);
    }
 }  /* Read_vector */  
 
@@ -399,16 +399,15 @@ void compute_local(
    /* Initialize the boundaries of the life matrix */
   for (i = 0; i < nRowsGhost; i++) 
   {
-	for(j=0;j<nColsGhost;j++) 
+    for(j=0;j<nColsGhost;j++) 
     {
-        if(i==0 || j==0 ||i==nRowsGhost-1 ||j==nColsGhost-1)
-        {
-            life[i][j] = DIES ;
-            temp[i][j]  = DIES ;
-        }
+      if(i==0 || j==0 ||i==nRowsGhost-1 ||j==nColsGhost-1)
+      {
+          life[i][j] = DIES ;
+          temp[i][j]  = DIES ;
+      }
     } 
   }
-  //printf("\n--life[0][6]=%d\n",life[0][6]);
   
    for (i = 0; i < local_n; i++){
 	   row=i/n;
@@ -464,20 +463,20 @@ void compute_local(
                   comm, &status );
       }
       /* Do the second set of exchanges */
-      // if ((my_rank % 2) == 1) 
-      // {
-      // /* exchange up */
-      //     MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-      //             &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-      //             comm, &status );
-      // }
-      // else 
-      // {
-      // /* exchange down */
-      //     MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
-      //             &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
-      //             comm, &status );
-      // }
+      if ((my_rank % 2) == 1) 
+      {
+      /* exchange up */
+          MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+                  &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+                  comm, &status );
+      }
+      else 
+      {
+      /* exchange down */
+          MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
+                  &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
+                  comm, &status );
+      }
   
       flag = compute(life,temp,nRows,nCols);
   
@@ -501,7 +500,13 @@ void compute_local(
       ptr = life;
       life = temp;
       temp = ptr;
-  
+      for (i = 0; i < local_n; i++) 
+      {
+        int row = (i / nCols) + 1; // Skip ghost rows
+        int col = (i % nCols) + 1; // Skip ghost columns
+        local_x[i] = life[row][col]; // Copy from life to local_x
+      }
+
       #ifdef DEBUG2
           /* Print no. of cells alive after the current iteration */
           printf("No. of cells whose value changed in iteration %d = %d\n",k+1,flag) ;
