@@ -423,9 +423,9 @@ void compute_local(
 	   printf(" life[%d][%d]= %d \n",row,col,life[row][col]);
          #endif
    }
-    printf("Initial test_array:\n");
-   if (my_rank ==  0)
-   printarray(life, row, col, 0);
+  //   printf("Initial test_array:\n");
+  //  if (my_rank ==  0)
+  //  printarray(life, row, col, 0);
 
 
    #ifdef DEBUG2
@@ -518,6 +518,14 @@ void compute_local(
           printarray(life, row,col, k+1);
       #endif
   }
+
+  /* After the main computation loop */
+    for (i = 0; i < local_n; i++) {
+        int row = (i / n) + 1;  // Convert index i to row, accounting for ghost cells
+        int col = (i % n) + 1;  // Convert index i to col, accounting for ghost cells
+        local_x[i] = life[row][col];  // Copy each inner cell back to local_x
+    }
+
 
     int *final_result = NULL;
     if(my_rank == 0)
