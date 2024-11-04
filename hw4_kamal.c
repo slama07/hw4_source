@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
    
     Read_vector(local_x, counts, displs, n, "x", my_rank, comm);
    
-    compute_local(local_x, n,counts, displs, my_rank,comm_sz,comm);
+    compute_local(local_x, n, counts, displs, my_rank, comm_sz, comm);
    
     free(local_x);
   
@@ -349,6 +349,7 @@ void compute_local(
       int    local_x[]  /* in */,
       int n,	  
 	  int       counts[]   /* in  */, 
+      int displs[],
       int       my_rank    /* in */,
       int       comm_sz    /* in */,
       MPI_Comm  comm       /* in */) {
