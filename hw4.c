@@ -89,10 +89,10 @@ void print_life(int **life,int nRowsGhost,int nColsGhost,int my_rank,int local_n
 	printf("\n----life print----\n");
    
     printf("my_rank=%d local_n=%d \n",my_rank,local_n);
-    for (i = 0; i < nRowsGhost; i++)
+  for (i = 0; i < nRowsGhost; i++)
 	{
 		for(j=0;j<nColsGhost;j++)
-        {
+    {
 			printf(" %3d ",life[i][j]);  
 		}
          
@@ -141,6 +141,10 @@ int compute(int **life, int **temp, int nRows,int nCols) {
 
 /*-------------------------------------------------------------------*/
 int main(int argc, char **argv) {
+  if (argc != 3) 
+  {
+    printf("The number of arguments must be 3.\n")
+  }
    int n, local_n, i, remain;
    int comm_sz, my_rank, *counts;
    int *local_x;
@@ -352,8 +356,8 @@ void Read_vector(
    } 
    else 
    {
-        Check_for_error(local_ok, fname, "Can't allocate temporary vector", comm);
-        MPI_Scatterv(a, counts, displs, MPI_INT, local_a, local_n, MPI_INT, 0,comm);
+      Check_for_error(local_ok, fname, "Can't allocate temporary vector", comm);
+      MPI_Scatterv(a, counts, displs, MPI_INT, local_a, local_n, MPI_INT, 0,comm);
    }
 }  /* Read_vector */  
 
@@ -442,70 +446,70 @@ void compute_local(
   /* Play the game of life for given number of iterations */
   for (k = 0; k < NTIMES; k++) 
   {
-        flag = 0;
-        
-        if ((my_rank % 2) == 0) 
-        {
-        /* exchange up */
-            MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 0, 
-                    &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 0, 
-                    comm, &status );
-        
-        }
-        else 
-        {
-        /* exchange down */
-            MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 0,
-                    &(life[0][0]), nColsGhost, MPI_INT, down_rank, 0, 
-                    comm, &status );
-        }
+      flag = 0;
+      
+      if ((my_rank % 2) == 0) 
+      {
+      /* exchange up */
+          MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 0, 
+                  &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 0, 
+                  comm, &status );
+      
+      }
+      else 
+      {
+      /* exchange down */
+          MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 0,
+                  &(life[0][0]), nColsGhost, MPI_INT, down_rank, 0, 
+                  comm, &status );
+      }
 
-        /* Do the second set of exchanges */
-        if ((my_rank % 2) == 1) 
-        {
-        /* exchange up */
-            MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-                    &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-                    comm, &status );
-        }
-        else 
-        {
-        /* exchange down */
-            MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
-                    &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
-                    comm, &status );
-        }
-    
-        flag = compute(life,temp,nRows,nCols);
-    
-        MPI_Barrier(comm);
-    // Each MPI process sends its rank to reduction, root MPI process collects the result
-        int reduction_flag = 0;
-        MPI_Allreduce(&flag, &reduction_flag, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
-    
-        if(my_rank == 0)
-        {   
-            if(!reduction_flag)
-                printf("The sum of all flag is %d after k=%d.\n", reduction_flag,k);
-        }
-        if(!reduction_flag)
-        {
-            break;
-        }
+      /* Do the second set of exchanges */
+      if ((my_rank % 2) == 1) 
+      {
+      /* exchange up */
+          MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+                  &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+                  comm, &status );
+      }
+      else 
+      {
+      /* exchange down */
+          MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
+                  &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
+                  comm, &status );
+      }
+  
+      flag = compute(life,temp,nRows,nCols);
+  
+      MPI_Barrier(comm);
+  // Each MPI process sends its rank to reduction, root MPI process collects the result
+      int reduction_flag = 0;
+      MPI_Allreduce(&flag, &reduction_flag, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
+  
+      if(my_rank == 0)
+      {   
+          if(!reduction_flag)
+              printf("The sum of all flag is %d after k=%d.\n", reduction_flag,k);
+      }
+      if(!reduction_flag)
+      {
+          break;
+      }
 
-        MPI_Barrier(comm);
-        /* copy the new values to the old array */
-        ptr = life;
-        life = temp;
-        temp = ptr;
-    
-        #ifdef DEBUG2
-            /* Print no. of cells alive after the current iteration */
-            printf("No. of cells whose value changed in iteration %d = %d\n",k+1,flag) ;
-            printf("rank=%d\n",my_rank);
-            /* Display the life matrix */
-            printarray(life, row,col, k+1);
-        #endif
+      MPI_Barrier(comm);
+      /* copy the new values to the old array */
+      ptr = life;
+      life = temp;
+      temp = ptr;
+  
+      #ifdef DEBUG2
+          /* Print no. of cells alive after the current iteration */
+          printf("No. of cells whose value changed in iteration %d = %d\n",k+1,flag) ;
+          printf("rank=%d\n",my_rank);
+          /* Display the life matrix */
+          printarray(life, row,col, k+1);
+      #endif
   }
 
     int *final_result = NULL;
@@ -514,9 +518,10 @@ void compute_local(
         final_result = malloc(n * n * sizeof(int));
         t2 = gettime();
         printf("Time taken %f seconds for %d iterations\n", t2 - t1, k);
+        MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
     }
 
-    MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
+   
 
     // Optionally print or process the final_result on the root process
     printf("Final Life Matrix:\n");
