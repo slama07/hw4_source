@@ -514,24 +514,21 @@ void compute_local(
     int *final_result = NULL;
     if(my_rank == 0)
     {
-        final_result = malloc(n * n * sizeof(int));
-        t2 = gettime();
-        printf("Time taken %f seconds for %d iterations\n", t2 - t1, k);
-        MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
+      final_result = malloc(n * n * sizeof(int));
+      t2 = gettime();
+      printf("Time taken %f seconds for %d iterations\n", t2 - t1, k);
+      MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
+      printf("Final Life Matrix:\n");
+      printarray_1d(final_result, n, NTIMES);
+      free(final_result);
+      freearray(life);
+      freearray(temp);
     }
 
     else 
     {
       MPI_Gatherv(local_x, local_n, MPI_INT, NULL, counts, displs, MPI_INT, 0, comm);
     }
-
-   
-
-    // Optionally print or process the final_result on the root process
-    printf("Final Life Matrix:\n");
-    printarray_1d(final_result, n, NTIMES);
+  
     
-    free(final_result);
-    freearray(life);
-    freearray(temp);
 }  /* Print_life */
