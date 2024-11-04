@@ -30,7 +30,7 @@ void Print_vector(int local_b[], int *counts, int *displs, int n, char title[],
 void Parallel_vector_sum(int local_x[], int local_y[], 
       int local_z[], int local_n);
 void Print_local_vector( int local_b[],int *counts,char title[],int my_rank,      MPI_Comm  comm);
-void compute_local(int local_x[], int n,int counts[], int my_rank,int comm_sz, MPI_Comm  comm);
+void compute_local(int local_x[], int n,int counts[], int displs[], int my_rank,int comm_sz, MPI_Comm  comm);
 
 
 double gettime(void) {
@@ -172,7 +172,7 @@ int main(int argc, char **argv) {
    
     Read_vector(local_x, counts, displs, n, "x", my_rank, comm);
    
-    compute_local(local_x, n,counts,my_rank,comm_sz,comm);
+    compute_local(local_x, n,counts,displs,comm_sz,comm);
    
     free(local_x);
   
