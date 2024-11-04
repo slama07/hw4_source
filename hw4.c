@@ -30,7 +30,7 @@ void Print_vector(int local_b[], int *counts, int *displs, int n, char title[],
 void Parallel_vector_sum(int local_x[], int local_y[], 
       int local_z[], int local_n);
 void Print_local_vector( int local_b[],int *counts,char title[],int my_rank,      MPI_Comm  comm);
-void compute_local(int local_x[], int n,int counts[], int my_rank,int comm_sz, MPI_Comm  comm);
+void compute_local(int local_x[], int n,int counts[], int displs[], int my_rank,int comm_sz, MPI_Comm  comm, int NTIMES);
 
 
 double gettime(void) {
@@ -188,7 +188,7 @@ int main(int argc, char **argv) {
    
     Read_vector(local_x, counts, displs, n, "x", my_rank, comm);
    
-    compute_local(local_x, n,counts,my_rank,comm_sz,comm, NTIMES);
+    compute_local(local_x, n,counts, displs, my_rank,comm_sz,comm, NTIMES);
    
     free(local_x);
   
@@ -363,6 +363,7 @@ void compute_local(
     int    local_x[]  /* in */,
     int     n,	  
     int       counts[]   /* in  */, 
+    int displs[],
     int       my_rank    /* in */,
     int       comm_sz    /* in */,
     MPI_Comm  comm       /* in */,
@@ -477,7 +478,7 @@ void compute_local(
     
         flag = compute(life,temp,nRows,nCols);
     
-    
+        MPI_Barrier(comm);
     // Each MPI process sends its rank to reduction, root MPI process collects the result
         int reduction_flag = 0;
         MPI_Allreduce(&flag, &reduction_flag, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
