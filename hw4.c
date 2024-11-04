@@ -141,10 +141,10 @@ int compute(int **life, int **temp, int nRows,int nCols) {
 
 /*-------------------------------------------------------------------*/
 int main(int argc, char **argv) {
-  if (argc != 3) 
-  {
-    printf("The number of arguments must be 3.\n")
-  }
+  // if (argc != 3) 
+  // {
+  //   printf("The number of arguments must be 3.\n")
+  // }
    int n, local_n, i, remain;
    int comm_sz, my_rank, *counts;
    int *local_x;
