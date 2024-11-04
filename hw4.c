@@ -424,7 +424,8 @@ void compute_local(
          #endif
    }
     printf("Initial test_array:\n");
-   printarray(life, nRowsGhost, nColsGhost, 0);
+   if my_rank ==  0
+   printarray(life, row, col, 0);
 
 
    #ifdef DEBUG2
