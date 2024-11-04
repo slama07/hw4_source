@@ -424,6 +424,8 @@ void compute_local(
          #endif
    }
 
+   printarray(life, nRowsGhost, nColsGhost, 0)
+
 
    #ifdef DEBUG2
     printf("rank=%d\n",my_rank);
@@ -500,12 +502,12 @@ void compute_local(
       ptr = life;
       life = temp;
       temp = ptr;
-      for (i = 0; i < local_n; i++) 
-      {
-        int row = (i / nCols) + 1; // Skip ghost rows
-        int col = (i % nCols) + 1; // Skip ghost columns
-        local_x[i] = life[row][col]; // Copy from life to local_x
-      }
+      // for (i = 0; i < local_n; i++) 
+      // {
+      //   int row = (i / nCols) + 1; // Skip ghost rows
+      //   int col = (i % nCols) + 1; // Skip ghost columns
+      //   local_x[i] = life[row][col]; // Copy from life to local_x
+      // }
 
       #ifdef DEBUG2
           /* Print no. of cells alive after the current iteration */
