@@ -192,7 +192,7 @@ int main(int argc, char **argv) {
    
     Read_vector(local_x, counts, displs, n, "x", my_rank, comm);
    
-    compute_local(local_x, n,counts, displs, my_rank,comm_sz,comm, NTIMES);
+    compute_local(local_x, n,counts, displs, my_rank,comm_sz,comm);
    
     free(local_x);
   
