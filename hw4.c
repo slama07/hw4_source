@@ -1,11 +1,11 @@
 /* File:     hw4_kamal.c
- *Name: Md Kamal Hossain Chowdhury
+ *Name: Sonam Lama
  * 
  * Homework #:4
  * 
  *
- * Compile:  mpicc -g -Wall -o hw4_kamal hw4_kamal.c
- * Run:      mpiexec -n <comm_sz> ./hw4_kamal 4
+ * Compile:  mpicc -g -Wall -o hw4 hw4.c
+ * Run:      mpiexec -n <comm_sz> ./hw4 4
  *
  * 
  */
@@ -451,7 +451,7 @@ void compute_local(
       if ((my_rank % 2) == 0) 
       {
       /* exchange up */
-          MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 0, 
+        MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 0, 
                   &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 0, 
                   comm, &status );
       
@@ -464,20 +464,20 @@ void compute_local(
                   comm, &status );
       }
       /* Do the second set of exchanges */
-      // if ((my_rank % 2) == 1) 
-      // {
-      // /* exchange up */
-      //     MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-      //             &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
-      //             comm, &status );
-      // }
-      // else 
-      // {
-      // /* exchange down */
-      //     MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
-      //             &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
-      //             comm, &status );
-      // }
+      if ((my_rank % 2) == 1) 
+      {
+      /* exchange up */
+          MPI_Sendrecv( &(life[nRows][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+                  &(life[nRows+1][0]), nColsGhost, MPI_INT, upper_rank, 1, 
+                  comm, &status );
+      }
+      else 
+      {
+      /* exchange down */
+          MPI_Sendrecv( &(life[1][0]), nColsGhost, MPI_INT, down_rank, 1,
+                  &(life[0][0]), nColsGhost, MPI_INT, down_rank, 1, 
+                  comm, &status );
+      }
   
       flag = compute(life,temp,nRows,nCols);
   
@@ -518,6 +518,11 @@ void compute_local(
         t2 = gettime();
         printf("Time taken %f seconds for %d iterations\n", t2 - t1, k);
         MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
+    }
+
+    else 
+    {
+      MPI_Gatherv(local_x, local_n, MPI_INT, NULL, counts, displs, MPI_INT, 0, comm);
     }
 
    
