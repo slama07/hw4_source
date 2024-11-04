@@ -495,6 +495,13 @@ void compute_local(
 #endif
   }
 
+    for (i = 0; i < local_n; i++) {
+        int row = (i / n) + 1;  // Convert index i to row, accounting for ghost cells
+        int col = (i % n) + 1;  // Convert index i to col, accounting for ghost cells
+        local_x[i] = life[row][col];  // Copy each inner cell back to local_x
+    }
+
+
     int *final_result = NULL;
     if(my_rank == 0)
     {
