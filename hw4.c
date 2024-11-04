@@ -423,8 +423,8 @@ void compute_local(
 	   printf(" life[%d][%d]= %d \n",row,col,life[row][col]);
          #endif
    }
-    printf("Initial test_array:\n")
-   printarray(life, nRowsGhost, nColsGhost, 0)
+    printf("Initial test_array:\n");
+   printarray(life, nRowsGhost, nColsGhost, 0);
 
 
    #ifdef DEBUG2
