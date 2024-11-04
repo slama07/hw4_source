@@ -339,7 +339,7 @@ void Read_vector(
             comm);
         for (i = 0; i < n*n; i++) 
         {
-            srand(54321|i);
+            srand(time(NULL));
             if (drand48() < 0.5) 
                 a[i] = ALIVE ;
             else
