@@ -411,7 +411,7 @@ void compute_local(
     // printf("rank=%d\n",my_rank);
     /* Display the life matrix */
   if (my_rank == 0) {
-      printarray(life, 10,10, 0);
+      printarray(life, 9,9, 0);
     }
   //  #endif
    
