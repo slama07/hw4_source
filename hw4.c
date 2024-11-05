@@ -326,7 +326,6 @@ void Read_vector(
           a[i] = ALIVE;
           else
           a[i] = DIES;
-          printf("a[%d] = %d (rand_val = %f)\n", i, a[i], rand_val);
         }
         
     #ifdef DEBUG2
@@ -408,9 +407,8 @@ void compute_local(
          #endif
    }
 
-  MPI_Barrier(comm);
 
-  printarray(life, row,col, 0);
+  // printarray(life, row,col, 0);
   
   //  #endif
    
