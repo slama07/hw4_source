@@ -4,7 +4,7 @@
  * Homework #:4
  * 
  *
- * Compile:  mpicc -g -Wall -o hw4_kamal hw4.c
+ * Compile:  mpicc -g -Wall -o hw4 hw4.c
  * Run:      mpiexec -n <comm_sz> ./hw4 4
  *
  * 
