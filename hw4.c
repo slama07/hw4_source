@@ -321,7 +321,7 @@ void Read_vector(
        //   a[i]=i+1;
         /* Initialize the life matrix */
         for (i = 0; i < n*n; i++) {
-        srand(54321|i);
+        srand(54321);
         if (drand48() < 0.5) 
         a[i] = ALIVE ;
           else
