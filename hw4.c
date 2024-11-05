@@ -322,11 +322,14 @@ void Read_vector(
         /* Initialize the life matrix */
         for (i = 0; i < n*n; i++) {
         srand(54321);
-        if (drand48() < 0.5) 
+        double value = drand48();
+        if (value < 0.5) 
         a[i] = ALIVE ;
           else
         a[i] = DIES ;
+        printf("drand_value: %f", value);
         }
+        
     #ifdef DEBUG2
         printf("rank=%d\n",my_rank);
         /* Display the life matrix */
