@@ -401,9 +401,9 @@ void compute_local(
 	   printf("\n----local_x[%d]=%d-----",i,local_x[i]);
          #endif
 	   life[row][col]=local_x[i];
-         #ifdef DEBUG3
+        //  #ifdef DEBUG3
 	   printf(" life[%d][%d]= %d \n",row,col,life[row][col]);
-         #endif
+        //  #endif
    }
    #ifdef DEBUG2
     printf("rank=%d\n",my_rank);
@@ -419,7 +419,8 @@ void compute_local(
    if(my_rank==0){
    t1 = gettime();}
   /* Play the game of life for given number of iterations */
-  for (k = 0; k < NTIMES; k++) {
+  for (k = 0; k < NTIMES; k++) 
+  {
     flag = 0;
      
    if ((my_rank % 2) == 0) {
