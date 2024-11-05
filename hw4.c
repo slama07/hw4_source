@@ -401,9 +401,9 @@ void compute_local(
 	   printf("\n----local_x[%d]=%d-----",i,local_x[i]);
          #endif
 	   life[row][col]=local_x[i];
-        //  #ifdef DEBUG3
-	   printf(" life[%d][%d]= %d \n",row,col,life[row][col]);
-        //  #endif
+         #ifdef DEBUG3
+	       printf(" life[%d][%d]= %d \n",row,col,life[row][col]);
+         #endif
    }
 
    MPI_Barrier(comm);
@@ -411,7 +411,7 @@ void compute_local(
     // printf("rank=%d\n",my_rank);
     /* Display the life matrix */
   if (my_rank == 0) {
-      printarray(life, row,col, 0);
+      printarray(life, 10,10, 0);
     }
   //  #endif
    
