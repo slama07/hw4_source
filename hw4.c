@@ -321,12 +321,12 @@ void Read_vector(
        //   a[i]=i+1;
         /* Initialize the life matrix */
         for (i = 0; i < n*n; i++) {
-        double value = (int) (rand() % 2);
-        if (value == 1) 
-        a[i] = ALIVE ;
+        double rand_val = rand() / (double)RAND_MAX;
+          if (rand_val < 0.5) 
+          a[i] = ALIVE;
           else
-        a[i] = DIES ;
-        printf("drand_value: %d", value);
+          a[i] = DIES;
+          printf("a[%d] = %d (rand_val = %f)\n", i, a[i], rand_val);
         }
         
     #ifdef DEBUG2
