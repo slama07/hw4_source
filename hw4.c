@@ -405,11 +405,15 @@ void compute_local(
 	   printf(" life[%d][%d]= %d \n",row,col,life[row][col]);
         //  #endif
    }
-   #ifdef DEBUG2
-    printf("rank=%d\n",my_rank);
+
+   MPI_Barrier(comm);
+  //  #ifdef DEBUG2
+    // printf("rank=%d\n",my_rank);
     /* Display the life matrix */
-    printarray(life, row,col, 0);
-   #endif
+  if (my_rank == 0) {
+      printarray(life, row,col, 0);
+    }
+  //  #endif
    
    upper_rank = my_rank + 1;
    if (upper_rank >= comm_sz) upper_rank = MPI_PROC_NULL;
