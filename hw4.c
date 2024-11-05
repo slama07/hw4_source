@@ -406,13 +406,10 @@ void compute_local(
          #endif
    }
 
-   MPI_Barrier(comm);
-  //  #ifdef DEBUG2
-    // printf("rank=%d\n",my_rank);
-    /* Display the life matrix */
-  if (my_rank == 0) {
-      printarray(life, 9,9, 0);
-    }
+  MPI_Barrier(comm);
+
+  printarray(life, row,col, 0);
+  
   //  #endif
    
    upper_rank = my_rank + 1;
