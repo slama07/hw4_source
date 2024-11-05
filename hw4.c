@@ -512,7 +512,7 @@ void compute_local(
       printf("Time taken %f seconds for %d iterations\n", t2 - t1, k);
       MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
       printf("Final Life Matrix:\n");
-      printarray_1d(final_result, n, NTIMES);
+      // printarray_1d(final_result, n, NTIMES);
       free(final_result);
       freearray(life);
       freearray(temp);
