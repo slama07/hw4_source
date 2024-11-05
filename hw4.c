@@ -309,7 +309,7 @@ void Read_vector(
    int i, local_n;
    int local_ok = 1;
    char* fname = "Read_vector";
-
+   srand(54321);
    local_n = counts[my_rank];
    if (my_rank == 0) {
       a = malloc(n*n*sizeof(int));
@@ -321,8 +321,7 @@ void Read_vector(
        //   a[i]=i+1;
         /* Initialize the life matrix */
         for (i = 0; i < n*n; i++) {
-        srand(54321);
-        double value = drand48();
+        double value = rand();
         if (value < 0.5) 
         a[i] = ALIVE ;
           else
