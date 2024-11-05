@@ -416,7 +416,7 @@ void compute_local(
    if (upper_rank >= comm_sz) upper_rank = MPI_PROC_NULL;
    down_rank = my_rank - 1;
    if (down_rank < 0) down_rank = MPI_PROC_NULL;
-   int NTIMES=10;
+   int NTIMES= 5000;
    if(my_rank==0){
    t1 = gettime();}
   /* Play the game of life for given number of iterations */
