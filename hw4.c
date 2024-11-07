@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 
    n = atoi(argv[1]);
    char file_path[256];
-   snprintf(file_path, sizeof(file_path), "/root/Scratch/%s", argv[2]);
+   snprintf(file_path, sizeof(file_path), "/home/ualclsd0172/Scratch/%s", argv[2]);
   //NTIMES = atoi(argv[2]);
    //n=4;
   
