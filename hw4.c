@@ -30,7 +30,7 @@ void Print_vector(int local_b[], int *counts, int *displs, int n, char title[],
 void Parallel_vector_sum(int local_x[], int local_y[], 
       int local_z[], int local_n);
 void Print_local_vector( int local_b[],int *counts,char title[],int my_rank,      MPI_Comm  comm);
-void compute_local(int local_x[], int n,int counts[], int displs[], int my_rank,int comm_sz, MPI_Comm  comm);
+void compute_local(int local_x[], int n,int counts[], int displs[], int my_rank,int comm_sz, MPI_Comm  comm, const char* file_path);
 
 
 double gettime(void) {
@@ -125,6 +125,25 @@ int compute(int **life, int **temp, int nRows,int nCols) {
   return flag;
 }
 
+void Write_array_to_file(const char *file_path, int *array, int n) {
+    FILE *file = fopen(file_path, "w");
+    if (file == NULL) {
+        fprintf(stderr, "Error: Could not open file %s for writing\n", file_path);
+        return;
+    }
+
+    // Write the array to file
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            fprintf(file, "%d ", array[i * n + j]);
+        }
+        fprintf(file, "\n");  // New line after each row
+    }
+
+    fclose(file);
+    printf("Array successfully written to %s\n", file_path);
+}
+
 /*-------------------------------------------------------------------*/
 int main(int argc, char **argv) {
    int n, local_n, i, remain;
@@ -140,6 +159,8 @@ int main(int argc, char **argv) {
    MPI_Comm_rank(comm, &my_rank);
 
    n = atoi(argv[1]);
+   char file_path[256];
+   snprintf(file_path, sizeof(file_path), "/root/Scratch/%s", argv[2]);
   //NTIMES = atoi(argv[2]);
    //n=4;
   
@@ -172,7 +193,7 @@ int main(int argc, char **argv) {
    
     Read_vector(local_x, counts, displs, n, "x", my_rank, comm);
    
-    compute_local(local_x, n, counts, displs, my_rank, comm_sz, comm);
+    compute_local(local_x, n, counts, displs, my_rank, comm_sz, comm, file_path);
    
     free(local_x);
   
@@ -353,7 +374,8 @@ void compute_local(
       int displs[],
       int       my_rank    /* in */,
       int       comm_sz    /* in */,
-      MPI_Comm  comm       /* in */) {
+      MPI_Comm  comm       /* in */,
+      const char* file_path) {
 
    //int* b = NULL;
    int i, j,local_n;
@@ -511,8 +533,9 @@ void compute_local(
       t2 = gettime();
       printf("Time taken %f seconds for %d iterations\n", t2 - t1, k);
       MPI_Gatherv(local_x, local_n, MPI_INT, final_result, counts, displs, MPI_INT, 0, comm);
-      printf("Final Life Matrix:\n");
+      // printf("Final Life Matrix:\n");
       // printarray_1d(final_result, n, NTIMES);
+      Write_array_to_file(file_path, final_result, n);
       free(final_result);
       freearray(life);
       freearray(temp);
