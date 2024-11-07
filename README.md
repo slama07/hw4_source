@@ -8,7 +8,7 @@ Compile:  mpicc -g -Wall -o hw4 hw4.c
 
 
 
-To execute the program, you must have 2 additional arguments: number of iterations, path where you want the file to be saved
+To execute the program, you must have 2 additional arguments: size of board, path where you want the file to be saved
 
 Run:      mpiexec -n <comm_sz> ./hw4 4 Comparison/Code_1
 
