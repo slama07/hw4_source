@@ -160,7 +160,7 @@ int main(int argc, char **argv) {
 
    n = atoi(argv[1]);
    char file_path[256];
-   snprintf(file_path, sizeof(file_path), "/home/ualclsd0172/Scratch/%s", argv[2]);
+   snprintf(file_path, sizeof(file_path), "%s", argv[2]);
   //NTIMES = atoi(argv[2]);
    //n=4;
   
@@ -438,7 +438,8 @@ void compute_local(
    if (upper_rank >= comm_sz) upper_rank = MPI_PROC_NULL;
    down_rank = my_rank - 1;
    if (down_rank < 0) down_rank = MPI_PROC_NULL;
-   int NTIMES= 5000;
+
+   int NTIMES= 10;
    if(my_rank==0){
    t1 = gettime();}
   /* Play the game of life for given number of iterations */
