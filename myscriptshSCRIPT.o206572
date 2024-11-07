@@ -1,0 +1,64 @@
+setting asax scratch directory
+ 
+============================================================
+=====         Summary of your script job               =====
+============================================================
+  The script file is: myscript.sh
+  The time limit is 12:00:00 HH:MM:SS.
+  The target directory is: /home/ualclsd0172/hw5/hw4_source
+  The working directory is:  /scratch-local/ualclsd0172.myscriptshSCRIPT.206572.asax-pbs1
+  The memory limit is: 40gb
+  The job will start running after: 202411061957.00
+  Job Name: myscriptshSCRIPT
+  Queue: -q class -W group_list=classq
+  Constraints: 
+  Using  40  cores on master node  asax020.asc.edu
+  Node list:  asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu asax020.asc.edu
+  Cores:  40
+  Command typed:
+/scripts/run_script_mpi myscript.sh     
+  Queue submit command:
+qsub -q class -W group_list=classq -j oe -N myscriptshSCRIPT -a 202411061957.00 -r n -M slama@crimson.ua.edu -l walltime=12:00:00 -l select=40:mpiprocs=1:mem=1000mb 
+ 
+Time taken 1220.395443 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output11.txt
+Time taken 1220.932822 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output12.txt
+Time taken 1221.433686 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output13.txt
+Time taken 611.531818 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output21.txt
+Time taken 611.594262 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output22.txt
+Time taken 611.629203 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output23.txt
+Time taken 306.440569 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output41.txt
+Time taken 306.500205 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output42.txt
+Time taken 306.343612 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output43.txt
+Time taken 153.841474 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output81.txt
+Time taken 153.829517 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output82.txt
+Time taken 153.840953 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output83.txt
+Time taken 123.367644 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output101.txt
+Time taken 123.266401 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output102.txt
+Time taken 123.375465 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output103.txt
+Time taken 82.764480 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output161.txt
+Time taken 77.581747 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output162.txt
+Time taken 77.686438 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output163.txt
+Time taken 66.089389 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output201.txt
+Time taken 62.332853 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output202.txt
+Time taken 62.966276 seconds for 5000 iterations
+Array successfully written to /home/ualclsd0172/Scratch/sonam_output203.txt
