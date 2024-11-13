@@ -22,3 +22,10 @@ mpirun -n 16 hw4 5000 sonam_output163.txt
 mpirun -n 20 hw4 5000 sonam_output201.txt
 mpirun -n 20 hw4 5000 sonam_output202.txt
 mpirun -n 20 hw4 5000 sonam_output203.txt
+diff ~/Scratch/sonam_output11.txt ~/Scratch/sonam_output12.txt
+diff ~/Scratch/sonam_output21.txt ~/Scratch/sonam_output22.txt
+diff ~/Scratch/sonam_output41.txt ~/Scratch/sonam_output42.txt
+diff ~/Scratch/sonam_output81.txt ~/Scratch/sonam_output82.txt
+diff ~/Scratch/sonam_output101.txt ~/Scratch/sonam_output102.txt
+diff ~/Scratch/sonam_output161.txt ~/Scratch/sonam_output162.txt
+diff ~/Scratch/sonam_output201.txt ~/Scratch/sonam_output202.txt
