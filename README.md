@@ -1,4 +1,4 @@
-# hw3
+# hw4
 This is hw4 multiprocessing game of life.
 
 To run the main program:
